@@ -1,0 +1,28 @@
+{
+  "name": "entity-js",
+  "title": "EntityJS",
+  "version": "0.1.1",
+  "description": "Portable JavasScript OOP library for entity manipulation",
+  "author": {
+    "name": "Aleksey Podskrebyshev (Alex Pods)",
+    "email": "aleksey.podskrebyshev@gmail.com",
+    "url": "http://alexpods.com"
+  },
+  "keywords": [
+    "oop",
+    "class",
+    "entity"
+  ],
+  "homepage": "http://entity.alexpods.com",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/alexpods/EntityJS.git"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-uglify": "~0.2.4"
+  },
+  "readmeFilename": "README.md"
+}
