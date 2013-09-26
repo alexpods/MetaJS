@@ -1,18 +1,11 @@
 
-    Helper.extend(Entity, {
-        Helper:       Helper,
-        Manager:      Manager,
-        Class:        Class,
-        ClassBuilder: ClassBuilder,
-        Event:        Event,
-        Meta:         Meta,
-        MetaOption:   MetaOption,
+    Meta.Option = Option;
 
-        MetaOptionConstants:  MetaOptionConstants,
-        MetaOptionMethods:    MetaOptionMethods,
-        MetaOptionProperties: MetaOptionProperties
-    });
+    Meta.Processor = {
+        Interface: InterfaceProcessor,
+        Meta:      MetaProcessor
+    };
 
-    global.Entity = Entity;
+    global.Meta = Meta;
 
 })(this);

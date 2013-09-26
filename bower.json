@@ -1,6 +1,6 @@
 {
-    "name": "EntityJS",
-    "version": "0.1.1",
+    "name": "MetaJS",
+    "version": "0.1.0",
     "ignore": [
         "node_modules",
         "Gruntfile.js",

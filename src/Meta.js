@@ -1,18 +1,64 @@
-var Entity = function(name, parent, meta) {
+var Meta = function(options) {
+    this._options = {};
 
-    // If called as constructor - creates new entity
-    if (this instanceof Entity) {
-        // Actually - "parent" is data
-        return Manager.getClass(name).create(parent);
+    if (typeof options !== 'undefined') {
+        this.setOptions(options);
     }
-    // If only name is specified - returns entity class
-    else if (arguments.length == 1) {
-        return Manager.getClass(name);
-    }
-    // If name and some meta data are specified - creates new entity class and returns it
-    else {
-        var clazz = ClassBuilder.buildClass(name, parent, meta);
-        Manager.addClass(clazz);
-        return clazz;
+}
+
+Meta.prototype = {
+
+    process: function(object, meta) {
+        var metaOption, option;
+
+        for (option in meta) {
+
+            metaOption = this.hasOption(option)
+                ? (this.getOption(option))
+                : (this.hasOption('__DEFAULT__') ? this.getOption('__DEFAULT__') : null)
+
+            if (metaOption) {
+                metaOption.process.apply(metaOption, [object, meta[option]].concat(Array.prototype.slice.call(arguments,2)) );
+            }
+        }
+    },
+
+    getOption: function(name) {
+        if (!(name in this._options)) {
+            throw new Error('Meta option "' + name + '" does not exists!');
+        }
+        return this._options[name];
+    },
+
+    hasOption: function(name) {
+        return name in this._options;
+    },
+
+    setOption: function(option) {
+        if (!(option instanceof Option)) {
+            throw new Error('Meta option must be instance of "Option" class!');
+        }
+        this._options[option.getName()] = option;
+        return this;
+    },
+
+    getOptions: function() {
+        return this._options;
+    },
+
+    setOptions: function(options) {
+
+        if (Object.prototype.toString.apply(options) === '[object Array]') {
+            for (var i = 0, ii = options.length; i < ii; ++i) {
+                this.setOption(options[i]);
+            }
+        }
+        else {
+            for (var name in options) {
+                this.setOptions(new Option(name, options[name]));
+            }
+        }
+
+        return this;
     }
 }

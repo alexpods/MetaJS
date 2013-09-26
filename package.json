@@ -1,19 +1,17 @@
 {
-  "name": "entity-js",
-  "title": "EntityJS",
-  "version": "0.1.1",
-  "description": "Portable JavasScript OOP library for entity manipulation",
+  "name": "meta-js",
+  "title": "MetaJS",
+  "version": "0.1.0",
+  "description": "Portable JavaScript library for objects extension based on meta information",
   "author": {
     "name": "Aleksey Podskrebyshev (Alex Pods)",
     "email": "aleksey.podskrebyshev@gmail.com",
     "url": "http://alexpods.com"
   },
   "keywords": [
-    "oop",
-    "class",
-    "entity"
+    "object",
+    "meta"
   ],
-  "homepage": "http://entity.alexpods.com",
   "license": "MIT",
   "repository": {
     "type": "git",

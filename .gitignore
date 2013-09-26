@@ -1,4 +1,4 @@
 .idea
 node_modules
 bower_components
-dist/EntityJS.min.map
+dist/MetaJS.min.map
