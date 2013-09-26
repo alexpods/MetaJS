@@ -13,7 +13,7 @@ module.exports = function(grunt) {
                 src: [
                     "src/.prefix",
                     "src/Meta.js",
-                    "src/MetOptions.js",
+                    "src/MetaOption.js",
                     "src/Processors/*.js",
                     "src/.suffix"
                 ]

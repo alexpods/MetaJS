@@ -35,7 +35,7 @@ Meta.prototype = {
     },
 
     setOption: function(option) {
-        if (!(option instanceof Option)) {
+        if (!(option instanceof MetaOption)) {
             throw new Error('Meta option must be instance of "Option" class!');
         }
         this._options[option.getName()] = option;
@@ -55,7 +55,7 @@ Meta.prototype = {
         }
         else {
             for (var name in options) {
-                this.setOption(new Option(name, options[name]));
+                this.setOption(new MetaOption(name, options[name]));
             }
         }
 

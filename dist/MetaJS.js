@@ -38,7 +38,7 @@ Meta.prototype = {
     },
 
     setOption: function(option) {
-        if (!(option instanceof Option)) {
+        if (!(option instanceof MetaOption)) {
             throw new Error('Meta option must be instance of "Option" class!');
         }
         this._options[option.getName()] = option;
@@ -58,11 +58,50 @@ Meta.prototype = {
         }
         else {
             for (var name in options) {
-                this.setOption(new Option(name, options[name]));
+                this.setOption(new MetaOption(name, options[name]));
             }
         }
 
         return this;
+    }
+}
+var MetaOption = function(name, processor) {
+    if (typeof name === 'undefined') {
+        throw new Error('Meta option name must be specified!');
+    }
+    this._name       = name;
+    this._processors = [];
+
+    if (typeof processor !== 'undefined') {
+        this.setProcessor(processor);
+    }
+}
+
+MetaOption.prototype = {
+
+    getName: function() {
+        return this._name;
+    },
+
+    getProcessor: function() {
+        return this._processor;
+    },
+
+    setProcessor: function(processor) {
+        if (typeof processor === 'function') {
+            processor = { process: processor }
+        }
+        if (typeof processor.process !== 'function') {
+            throw new Error('Meta processor must have "process" function!');
+        }
+        this._processor = processor;
+        return this;
+    },
+
+    process: function(object, meta) {
+        for (var i = 0, ii = this._processors.length; i < ii; ++i) {
+            this._processors[i].process.apply(this._processors[i], [object, meta, this.getName()].concat(Array.prototype.slice.call(arguments, 2)));
+        }
     }
 }
 var ChainProcessor = function(processors) {
