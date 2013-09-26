@@ -70,7 +70,7 @@ var MetaOption = function(name, processor) {
         throw new Error('Meta option name must be specified!');
     }
     this._name       = name;
-    this._processors = [];
+    this._processor  = null;
 
     if (typeof processor !== 'undefined') {
         this.setProcessor(processor);
@@ -99,9 +99,7 @@ MetaOption.prototype = {
     },
 
     process: function(object, meta) {
-        for (var i = 0, ii = this._processors.length; i < ii; ++i) {
-            this._processors[i].process.apply(this._processors[i], [object, meta, this.getName()].concat(Array.prototype.slice.call(arguments, 2)));
-        }
+        this._processor.process.apply(this._processor, [object, meta, this.getName()].concat(Array.prototype.slice.call(arguments, 2)));
     }
 }
 var ChainProcessor = function(processors) {
