@@ -1,5 +1,5 @@
 
-    Meta.Option = Option;
+    Meta.Option = MetaOption;
 
     Meta.Processor = {
         Interface: InterfaceProcessor,
@@ -8,4 +8,4 @@
 
     global.Meta = Meta;
 
-})(this);
+})(this);g

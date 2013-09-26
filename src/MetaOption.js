@@ -1,4 +1,4 @@
-var Option = function(name, processor) {
+var MetaOption = function(name, processor) {
     if (typeof name === 'undefined') {
         throw new Error('Meta option name must be specified!');
     }
@@ -10,7 +10,7 @@ var Option = function(name, processor) {
     }
 }
 
-Option.prototype = {
+MetaOption.prototype = {
 
     getName: function() {
         return this._name;

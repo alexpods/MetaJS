@@ -157,7 +157,7 @@ InterfaceProcessor.prototype = {
 
 }
 
-    Meta.Option = Option;
+    Meta.Option = MetaOption;
 
     Meta.Processor = {
         Interface: InterfaceProcessor,
@@ -166,4 +166,4 @@ InterfaceProcessor.prototype = {
 
     global.Meta = Meta;
 
-})(this);
+})(this);g
