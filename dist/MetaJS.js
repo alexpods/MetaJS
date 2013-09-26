@@ -161,7 +161,7 @@ InterfaceProcessor.prototype = {
 
     Meta.Processor = {
         Interface: InterfaceProcessor,
-        Meta:      MetaProcessor
+        Chain:     ChainProcessor
     };
 
     global.Meta = Meta;
