@@ -55,7 +55,7 @@ Meta.prototype = {
         }
         else {
             for (var name in options) {
-                this.setOptions(new Option(name, options[name]));
+                this.setOption(new Option(name, options[name]));
             }
         }
 
