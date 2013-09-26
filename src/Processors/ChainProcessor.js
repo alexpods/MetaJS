@@ -1,7 +1,7 @@
 var ChainProcessor = function(processors) {
     this._processors = {};
 
-    if (typeof processors === 'undefined') {
+    if (typeof processors !== 'undefined') {
         this.setProcessors(processors);
     }
 }
