@@ -205,4 +205,4 @@ InterfaceProcessor.prototype = {
 
     global.Meta = Meta;
 
-})(this);g
+})(this);
