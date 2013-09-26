@@ -15,6 +15,9 @@ ChainProcessor.prototype = {
     },
 
     setProcessor: function(name, processor) {
+        if (typeof processor === 'function') {
+            processor = { process: processor }
+        }
         if (typeof processor.process !== 'function') {
             throw new Error('Processor must have "process" method!');
         }
