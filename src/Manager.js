@@ -11,10 +11,10 @@ var Manager = {
         return name in this._types;
     },
 
-    setType: function(name, metas) {
+    setType: function(name, metaHandlers) {
         var type = name instanceof Type
             ? name
-            : new Type(name, metas);
+            : new Type(name, metaHandlers);
 
         this._types[type.getName()] = type;
         return this;

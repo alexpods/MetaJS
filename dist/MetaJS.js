@@ -319,7 +319,7 @@ var Type = function(name, metaHandlers) {
     this._name  = name;
     this._metaHandlers = {};
 
-    if (typeof metaHandler !== 'undefined') {
+    if (typeof metaHandlers !== 'undefined') {
         this.setMetaHandlers(metaHandlers);
     }
 };
@@ -405,10 +405,10 @@ var Manager = {
         return name in this._types;
     },
 
-    setType: function(name, metas) {
+    setType: function(name, metaHandlers) {
         var type = name instanceof Type
             ? name
-            : new Type(name, metas);
+            : new Type(name, metaHandlers);
 
         this._types[type.getName()] = type;
         return this;

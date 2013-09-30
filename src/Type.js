@@ -5,7 +5,7 @@ var Type = function(name, metaHandlers) {
     this._name  = name;
     this._metaHandlers = {};
 
-    if (typeof metaHandler !== 'undefined') {
+    if (typeof metaHandlers !== 'undefined') {
         this.setMetaHandlers(metaHandlers);
     }
 };
