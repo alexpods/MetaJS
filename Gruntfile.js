@@ -12,9 +12,16 @@ module.exports = function(grunt) {
                 dest: "dist/<%= pkg.title %>.js",
                 src: [
                     "src/.prefix",
-                    "src/Meta.js",
-                    "src/MetaOption.js",
+
                     "src/Processors/*.js",
+                    "src/Processors.js",
+
+                    "src/Option.js",
+                    "src/Handler.js",
+                    "src/Type.js",
+                    "src/Manager.js",
+
+                    "src/.build",
                     "src/.suffix"
                 ]
             }

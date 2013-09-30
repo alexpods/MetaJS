@@ -4,7 +4,7 @@ var ChainProcessor = function(processors) {
     if (typeof processors !== 'undefined') {
         this.setProcessors(processors);
     }
-}
+};
 
 ChainProcessor.prototype = {
 
@@ -14,22 +14,8 @@ ChainProcessor.prototype = {
         }
     },
 
-    setProcessor: function(name, processor) {
-        if (typeof processor === 'function') {
-            processor = { process: processor }
-        }
-        if (typeof processor.process !== 'function') {
-            throw new Error('Processor must have "process" method!');
-        }
-        this._processors[name] = processor;
-
-        return this;
-    },
-
     getProcessor: function(name) {
-        if (!(name in this._processors)) {
-            throw new Error('Processor "' + name + '" does not exists!');
-        }
+        this.checkProcessor(name);
         return this._processors[name];
     },
 
@@ -37,14 +23,42 @@ ChainProcessor.prototype = {
         return name in this._processors;
     },
 
+    setProcessor: function(name, processor) {
+        if (typeof processor === 'undefined') {
+            processor = Processors.get(name);
+        }
+        else if (typeof processor === 'function') {
+            processor = { process: processor }
+        }
+        else if (typeof processor.process !== 'function') {
+            throw new Error('Meta processor must have "process" function!');
+        }
+        this._processors[name] = processor;
+
+        return this;
+    },
+
+    removeProcessor: function(name) {
+        this.checkProcessor(name);
+        var processor = this._processors[name];
+        delete this._processors[name];
+        return processor;
+    },
+
+    checkProcessor: function(name) {
+        if (!this.hasProcessor(name)) {
+            throw new Error('Chain meta processor "' + this.getName() + '" does not have processor "' + name + '"!');
+        }
+    },
+
+    getProcessors: function() {
+        return this._processors;
+    },
+
     setProcessors: function(processors) {
         for (var name in processors) {
             this.setProcessor(name, processors[name]);
         }
         return this;
-    },
-
-    getProcessors: function() {
-        return this._processors;
     }
-}
+};

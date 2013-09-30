@@ -1,0 +1,7 @@
+global.Meta = {
+    Manager:    Manager,
+    Handler:    Handler,
+    Type:       Type,
+    Option:     Option,
+    Processors: Processors
+};

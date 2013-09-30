@@ -3,7 +3,7 @@ var InterfaceProcessor = function(iface) {
         throw new Error('Interface must be an object!');
     }
     this._interface = iface;
-}
+};
 
 InterfaceProcessor.prototype = {
 
@@ -40,5 +40,4 @@ InterfaceProcessor.prototype = {
 
         return copy;
     }
-
-}
+};
