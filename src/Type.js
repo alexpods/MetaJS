@@ -51,7 +51,7 @@ Type.prototype = {
     },
 
     setMetaHandlers: function(metaHandlers) {
-        if (Object.prototype.toString.call(metaHandlers)) {
+        if (Object.prototype.toString.call(metaHandlers) === '[object Array]') {
             for (var i = 0, ii = metaHandlers.length; i < ii; ++i) {
                 this.setMetaHandler(metaHandlers[i]);
             }
