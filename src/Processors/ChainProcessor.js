@@ -56,8 +56,15 @@ ChainProcessor.prototype = {
     },
 
     setProcessors: function(processors) {
-        for (var name in processors) {
-            this.setProcessor(name, processors[name]);
+        if (Object.prototype.toString.call(processors) === '[object Array]') {
+            for (var i = 0, ii = processors.length; i < ii; ++i) {
+                this.setProcessor(processors[i]);
+            }
+        }
+        else {
+            for (var name in processors) {
+                this.setProcessor(name, processors[name]);
+            }
         }
         return this;
     }
