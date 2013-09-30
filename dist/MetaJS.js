@@ -364,15 +364,15 @@ Type.prototype = {
         return this;
     },
 
-    setMetaHandlers: function(metas) {
-        if (Object.prototype.toString.call(metas)) {
-            for (var i = 0, ii = metas.length; i < ii; ++i) {
-                this.setMetaHandler(metas[i]);
+    setMetaHandlers: function(metaHandlers) {
+        if (Object.prototype.toString.call(metaHandlers)) {
+            for (var i = 0, ii = metaHandlers.length; i < ii; ++i) {
+                this.setMetaHandler(metaHandlers[i]);
             }
         }
         else {
-            for (var name in metas) {
-                this.setMetaHandler(name, metas[name]);
+            for (var name in metaHandlers) {
+                this.setMetaHandler(name, metaHandlers[name]);
             }
         }
         return this;
