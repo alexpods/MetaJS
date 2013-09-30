@@ -272,7 +272,7 @@ Handler.prototype = {
     },
 
     setOption: function(option) {
-        if (!(option instanceof MetaOption)) {
+        if (!(option instanceof Option)) {
             throw new Error('Meta option must be instance of "Option" class!');
         }
         this._options[option.getName()] = option;
