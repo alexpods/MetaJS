@@ -1,4 +1,4 @@
-meta.processor('Meta.Chain', function(object, meta, processors) {
+meta.processor('Meta.Chain', function(object, _meta, processors) {
     var processor, name;
 
     for (name in processors) {
@@ -7,6 +7,6 @@ meta.processor('Meta.Chain', function(object, meta, processors) {
         if (typeof processor === 'string') {
             processor = meta.processor(processor);
         }
-        processor.process.apply(processor, [object, meta].concat(Array.prototype.slice.call(arguments, 3)));
+        processor.process.apply(processor, [object, _meta].concat(Array.prototype.slice.call(arguments, 3)));
     }
 })
