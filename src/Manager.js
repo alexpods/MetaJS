@@ -1,5 +1,5 @@
 var Manager = function() {
-    this._proceessor = {};
+    this._processors = {};
 }
 
 Manager.prototype = {
