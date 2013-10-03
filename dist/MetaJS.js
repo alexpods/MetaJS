@@ -129,10 +129,10 @@ meta.processor('Meta.Interface', {
         return copy;
     }
 })
-meta.processor('Meta.Options', function(object, meta, options) {
+meta.processor('Meta.Options', function(object, _meta, options) {
     var processor, option;
 
-    for (var option in meta) {
+    for (var option in _meta) {
         processor = (option in options)
             ? options[option]
             : (('DEFAULT' in options) ? options.DEFAULT : null);
@@ -145,7 +145,7 @@ meta.processor('Meta.Options', function(object, meta, options) {
             processor = meta.processor(processor);
         }
 
-        processor.process.apply(processor, [object, meta].concat(Array.prototype.slice.call(arguments, 3), option));
+        processor.process.apply(processor, [object, _meta[option]].concat(Array.prototype.slice.call(arguments, 3), option));
     }
 })
 
