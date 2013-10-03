@@ -1,7 +1,8 @@
-global.Meta = {
-    Manager:    Manager,
-    Handler:    Handler,
-    Type:       Type,
-    Option:     Option,
-    Processors: Processors
-};
+;(function(global) {
+
+    var manager = new Manager();
+    var meta    = new Meta(manager);
+
+    global.meta = meta;
+
+})(global)

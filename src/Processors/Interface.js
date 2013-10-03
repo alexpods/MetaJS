@@ -1,15 +1,8 @@
-var InterfaceProcessor = function(iface) {
-    if (typeof iface !== 'object') {
-        throw new Error('Interface must be an object!');
-    }
-    this._interface = iface;
-};
+meta.processor('Meta.Interface', {
 
-InterfaceProcessor.prototype = {
-
-    process: function(object) {
-        for (var property in this._interface) {
-            object[property] = this.copy(this._interface[property]);
+    process: function(object, meta, iface) {
+        for (var property in iface) {
+            object[property] = this.copy(iface[property]);
         }
     },
 
@@ -40,4 +33,4 @@ InterfaceProcessor.prototype = {
 
         return copy;
     }
-};
+})
