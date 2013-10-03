@@ -23,9 +23,9 @@ Manager.prototype = {
         if (typeof processor.process !== 'function') {
             throw new Error('Meta processor must have "process" method!');
         }
-        var realProcess = processor.process;
+        processor.__process = processor.process;
         processor.process = function(object, meta) {
-            return realProcess.apply(processor, [object, meta].concat(params || [], Array.prototype.slice.call(arguments, 2)));
+            return processor.__process.apply(processor, [object, meta].concat(params || [], Array.prototype.slice.call(arguments, 2)));
         }
 
         this._processors[name] = processor;
