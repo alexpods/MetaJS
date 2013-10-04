@@ -15,7 +15,7 @@ var Processor = function(base, self) {
     }
 
     for (var property in self) {
-        this[property] = this._copy(self[property]);
+        this[property] = this.__copy(self[property]);
     }
 }
 
