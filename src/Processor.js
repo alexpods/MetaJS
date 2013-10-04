@@ -1,4 +1,6 @@
-var Processor = function(base, self) {
+var Processor = function(name, base, self) {
+    this._name = name;
+
     if (typeof base === 'function') {
         base = { process: base }
     }
@@ -20,6 +22,10 @@ var Processor = function(base, self) {
 }
 
 Processor.prototype = {
+
+    getName: function() {
+        return this._name;
+    },
 
     process: function() {
         throw new Error('Process method must be overwritten in subprocessors!');
