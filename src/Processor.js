@@ -18,7 +18,7 @@ var Processor = function(name, base, self) {
         this[property] = this.__copy(self[property]);
     }
 
-    this._name = name;c
+    this._name = name;
 }
 
 Processor.prototype = {
