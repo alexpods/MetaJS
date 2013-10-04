@@ -41,7 +41,7 @@ Manager.prototype = {
         }
         var realProcess = processor.process;
         processor.process = function(object, meta) {
-            return realProcess.__process.apply(processor, [object, meta].concat(params || [], Array.prototype.slice.call(arguments, 2)));
+            return realProcess.apply(processor, [object, meta].concat(params || [], Array.prototype.slice.call(arguments, 2)));
         }
 
         this._processors[name] = processor;
