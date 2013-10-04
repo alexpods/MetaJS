@@ -18,7 +18,7 @@ meta.processor('Meta.Options', {
                 processor = meta.processor(processor);
             }
 
-            processor.process.apply(processor, [object, _meta[option]].concat(Array.prototype.slice.call(arguments, 3), option));
+            processor.process.apply(processor, [object, _meta[option]].concat(Array.prototype.slice.call(arguments, 2), option));
         }
     }
 })
