@@ -38,7 +38,7 @@ Manager.prototype = {
             baseProcessor = this.getProcessor(baseProcessor);
         }
 
-        this._processors[name] = new Processor(baseProcesor, processor);
+        this._processors[name] = new Processor(baseProcessor, processor);
         return this;
     },
 
