@@ -15,6 +15,7 @@ module.exports = function(grunt) {
 
                     "src/Meta.js",
                     "src/Manager.js",
+                    "src/Processor.js",
 
                     "src/.build",
 

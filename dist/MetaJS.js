@@ -29,22 +29,16 @@ Manager.prototype = {
         return name in this._processors;
     },
 
-    setProcessor: function(name, processor, params) {
-        if (typeof processor === 'string') {
-            processor = this.getProcessor(processor);
+    setProcessor: function(name, baseProcessor, processor) {
+        if (typeof processor === 'undefined') {
+            processor     = baseProcessor;
+            baseProcessor = null;
         }
-        if (typeof processor === 'function') {
-            processor = { process: processor }
-        }
-        if (typeof processor.process !== 'function') {
-            throw new Error('Meta processor must have "process" method!');
-        }
-        var realProcess = processor.process;
-        processor.process = function(object, meta) {
-            return realProcess.apply(processor, [object, meta].concat(params || [], Array.prototype.slice.call(arguments, 2)));
+        if (typeof baseProcessor === 'string') {
+            baseProcessor = this.getProcessor(baseProcessor);
         }
 
-        this._processors[name] = processor;
+        this._processors[name] = new Processor(baseProcesor, processor);
         return this;
     },
 
@@ -73,35 +67,34 @@ Manager.prototype = {
     }
 
 }
-;(function(global) {
-
-    var manager = new Manager();
-    var meta    = new Meta(manager);
-
-    global.meta = meta;
-
-})(global)
-meta.processor('Meta.Chain', function(object, _meta, processors) {
-    var processor, name;
-
-    for (name in processors) {
-        processor = processors[name];
-
-        if (typeof processor === 'string') {
-            processor = meta.processor(processor);
-        }
-        processor.process.apply(processor, [object, _meta].concat(Array.prototype.slice.call(arguments, 3)));
+var Processor = function(base, self) {
+    if (typeof base === 'function') {
+        base = { process: base }
     }
-})
-meta.processor('Meta.Interface', {
 
-    process: function(object, meta, iface) {
-        for (var property in iface) {
-            object[property] = this.copy(iface[property]);
+    if (typeof self === 'undefined') {
+        self = base;
+        base = null;
+    }
+
+    if (base) {
+        for (var property in base) {
+            this[property] = this.__copy(base[property]);
         }
+    }
+
+    for (var property in self) {
+        this[property] = this._copy(self[property]);
+    }
+}
+
+Processor.prototype = {
+
+    process: function() {
+        throw new Error('Process method must be overwritten in subprocessors!');
     },
 
-    copy: function(object) {
+    __copy: function(object) {
         var copy, toString = Object.prototype.toString.apply(object);
 
         if (typeof object !== 'object') {
@@ -113,7 +106,7 @@ meta.processor('Meta.Interface', {
         else if ('[object Array]' === toString) {
             copy = [];
             for (var i = 0, ii = object.length; i < ii; ++i) {
-                copy[i] = this.copy(object[i]);
+                copy[i] = this.__copy(object[i]);
             }
         }
         else if ('[object RegExp]' === toString) {
@@ -122,30 +115,70 @@ meta.processor('Meta.Interface', {
         else {
             copy = {}
             for (var property in object) {
-                copy[property] = this.copy(object[property]);
+                copy[property] = this.__copy(object[property]);
             }
         }
 
         return copy;
     }
+}
+;(function(global) {
+
+    var manager = new Manager();
+    var meta    = new Meta(manager);
+
+    global.meta = meta;
+
+})(global)
+meta.processor('Meta.Chain',  {
+
+    processors: {},
+
+    process: function(object, _meta) {
+        var processor, name;
+
+        for (name in this.processors) {
+            processor = this.processors[name];
+
+            if (typeof processor === 'string') {
+                processor = meta.processor(processor);
+            }
+            processor.process.apply(processor, [object, _meta].concat(Array.prototype.slice.call(arguments, 3)));
+        }
+    }
 })
-meta.processor('Meta.Options', function(object, _meta, options) {
-    var processor, option;
+meta.processor('Meta.Interface', {
 
-    for (var option in _meta) {
-        processor = (option in options)
-            ? options[option]
-            : (('DEFAULT' in options) ? options.DEFAULT : null);
+    interface: {},
 
-        if (!processor) {
-            continue;
+    process: function(object) {
+        for (var property in this.interface) {
+            object[property] = this.__copy(this.interface[property]);
         }
+    }
+})
+meta.processor('Meta.Options', {
 
-        if (typeof processor === 'string') {
-            processor = meta.processor(processor);
+    options: {},
+
+    process: function(object, _meta) {
+        var processor, option;
+
+        for (option in _meta) {
+            processor = (option in this.options)
+                ? this.options[option]
+                : (('DEFAULT' in this.options) ? this.options.DEFAULT : null);
+
+            if (!processor) {
+                continue;
+            }
+
+            if (typeof processor === 'string') {
+                processor = meta.processor(processor);
+            }
+
+            processor.process.apply(processor, [object, _meta[option]].concat(Array.prototype.slice.call(arguments, 3), option));
         }
-
-        processor.process.apply(processor, [object, _meta[option]].concat(Array.prototype.slice.call(arguments, 3), option));
     }
 })
 

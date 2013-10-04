@@ -13,22 +13,16 @@ Manager.prototype = {
         return name in this._processors;
     },
 
-    setProcessor: function(name, processor, params) {
-        if (typeof processor === 'string') {
-            processor = this.getProcessor(processor);
+    setProcessor: function(name, baseProcessor, processor) {
+        if (typeof processor === 'undefined') {
+            processor     = baseProcessor;
+            baseProcessor = null;
         }
-        if (typeof processor === 'function') {
-            processor = { process: processor }
-        }
-        if (typeof processor.process !== 'function') {
-            throw new Error('Meta processor must have "process" method!');
-        }
-        var realProcess = processor.process;
-        processor.process = function(object, meta) {
-            return realProcess.apply(processor, [object, meta].concat(params || [], Array.prototype.slice.call(arguments, 2)));
+        if (typeof baseProcessor === 'string') {
+            baseProcessor = this.getProcessor(baseProcessor);
         }
 
-        this._processors[name] = processor;
+        this._processors[name] = new Processor(baseProcesor, processor);
         return this;
     },
 

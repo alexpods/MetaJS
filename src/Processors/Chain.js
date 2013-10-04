@@ -1,12 +1,17 @@
-meta.processor('Meta.Chain', function(object, _meta, processors) {
-    var processor, name;
+meta.processor('Meta.Chain',  {
 
-    for (name in processors) {
-        processor = processors[name];
+    processors: {},
 
-        if (typeof processor === 'string') {
-            processor = meta.processor(processor);
+    process: function(object, _meta) {
+        var processor, name;
+
+        for (name in this.processors) {
+            processor = this.processors[name];
+
+            if (typeof processor === 'string') {
+                processor = meta.processor(processor);
+            }
+            processor.process.apply(processor, [object, _meta].concat(Array.prototype.slice.call(arguments, 3)));
         }
-        processor.process.apply(processor, [object, _meta].concat(Array.prototype.slice.call(arguments, 3)));
     }
 })
