@@ -3,11 +3,11 @@ var Meta = function(manager) {
 }
 
 Meta.prototype = {
-    processor: function(name, processor, params) {
-        if (typeof processor === 'undefined') {
+    processor: function(name, baseProcessor, processor) {
+        if (typeof baseProcessor === 'undefined') {
             return this.manager.getProcessor(name);
         }
 
-        this.manager.setProcessor(name, processor, params);
+        this.manager.setProcessor(name, baseProcessor, processor);
     }
 }

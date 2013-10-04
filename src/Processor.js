@@ -1,6 +1,4 @@
 var Processor = function(name, base, self) {
-    this._name = name;
-
     if (typeof base === 'function') {
         base = { process: base }
     }
@@ -19,6 +17,8 @@ var Processor = function(name, base, self) {
     for (var property in self) {
         this[property] = this.__copy(self[property]);
     }
+
+    this._name = name;c
 }
 
 Processor.prototype = {
