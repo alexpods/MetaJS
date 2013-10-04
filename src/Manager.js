@@ -22,6 +22,10 @@ Manager.prototype = {
             baseProcessor = this.getProcessor(baseProcessor);
         }
 
+        if (typeof processor === 'function') {
+            processor = { process: processor }
+        }
+
         processor = new Processor(name, baseProcessor, processor);
 
         this._processors[processor.getName()] = processor;
