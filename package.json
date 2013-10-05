@@ -15,7 +15,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "http://github.com/alexpods/EntityJS.git"
+    "url": "http://github.com/alexpods/MetaJS.git"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
