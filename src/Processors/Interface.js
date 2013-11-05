@@ -7,4 +7,4 @@ meta.processor('Meta.Interface', {
             object[property] = this.__copy(this.interface[property]);
         }
     }
-})
+});

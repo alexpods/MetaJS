@@ -12,7 +12,11 @@
                 dependencies[i] = require(dependency);
             }
         }
-        exports = factory.apply(global, dependencies);
+        var module = factory.apply(global, dependencies);
+
+        for (var property in module) {
+            exports[property] = module[property];
+        }
     }
     // Just global variable
     else {

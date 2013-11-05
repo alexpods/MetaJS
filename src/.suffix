@@ -1,1 +1,9 @@
+
+return {
+    Manager:    Manager,
+    Processor:  Processor,
+    Meta:       Meta,
+    meta:       meta
+};
+
 }));

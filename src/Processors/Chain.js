@@ -14,4 +14,4 @@ meta.processor('Meta.Chain',  {
             processor.process.apply(processor, [object, _meta].concat(Array.prototype.slice.call(arguments, 3)));
         }
     }
-})
+});

@@ -1,10 +1,2 @@
 var manager   = new Manager();
 var meta      = new Meta(manager);
-
-return {
-    Manager:    Manager,
-    Processor:  Processor,
-    Meta:       Meta,
-
-    meta: meta
-};

@@ -21,4 +21,4 @@ meta.processor('Meta.Options', {
             processor.process.apply(processor, [object, _meta[option]].concat(Array.prototype.slice.call(arguments, 2), option));
         }
     }
-})
+});

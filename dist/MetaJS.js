@@ -12,7 +12,11 @@
                 dependencies[i] = require(dependency);
             }
         }
-        exports = factory.apply(global, dependencies);
+        var module = factory.apply(global, dependencies);
+
+        for (var property in module) {
+            exports[property] = module[property];
+        }
     }
     // Just global variable
     else {
@@ -164,14 +168,6 @@ Processor.prototype = {
 }
 var manager   = new Manager();
 var meta      = new Meta(manager);
-
-return {
-    Manager:    Manager,
-    Processor:  Processor,
-    Meta:       Meta,
-
-    meta: meta
-};
 meta.processor('Meta.Chain',  {
 
     processors: {},
@@ -188,7 +184,7 @@ meta.processor('Meta.Chain',  {
             processor.process.apply(processor, [object, _meta].concat(Array.prototype.slice.call(arguments, 3)));
         }
     }
-})
+});
 meta.processor('Meta.Interface', {
 
     interface: {},
@@ -198,7 +194,7 @@ meta.processor('Meta.Interface', {
             object[property] = this.__copy(this.interface[property]);
         }
     }
-})
+});
 meta.processor('Meta.Options', {
 
     options: {},
@@ -222,5 +218,13 @@ meta.processor('Meta.Options', {
             processor.process.apply(processor, [object, _meta[option]].concat(Array.prototype.slice.call(arguments, 2), option));
         }
     }
-})
+});
+
+return {
+    Manager:    Manager,
+    Processor:  Processor,
+    Meta:       Meta,
+    meta:       meta
+};
+
 }));
