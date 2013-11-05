@@ -1,13 +1,14 @@
 {
   "name": "meta-js",
   "title": "MetaJS",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Portable JavaScript library for objects extension based on meta information",
   "author": {
     "name": "Aleksey Podskrebyshev (Alex Pods)",
     "email": "aleksey.podskrebyshev@gmail.com",
     "url": "http://alexpods.com"
   },
+  "main": "dist/MetaJS",
   "keywords": [
     "object",
     "meta"

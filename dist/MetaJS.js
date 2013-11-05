@@ -1,5 +1,33 @@
-;(function(global, undefined) {
-
+;(function (global, name, dependencies, factory) {
+    // AMD integration
+    if (typeof define === 'function' && define.amd) {
+        define(name, dependencies, factory);
+    }
+    // CommonJS integration
+    else if (typeof exports === "object" && exports) {
+        for (var i = 0, ii = dependencies.length; i < ii; ++i) {
+            var dependency = dependencies[i];
+            if (typeof dependency === 'string') {
+                dependency = dependency.replace(/([A-Z]+)/g, function($1) { return '-'+$1.toLowerCase(); }).replace(/^-/, '');
+                dependencies[i] = require(dependency);
+            }
+        }
+        exports = factory.apply(global, dependencies);
+    }
+    // Just global variable
+    else {
+        for (var i = 0, ii = dependencies.length; i < ii; ++i) {
+            var dependency = dependencies[i];
+            if (typeof dependency === 'string') {
+                if (!(dependency in global)) {
+                    throw new Error('"' + name + '" dependent on non exited module "' + dependency + '"!');
+                }
+                dependencies[i] = global[dependency];
+            }
+        }
+        global[name] = factory.apply(global, dependencies);
+    }
+}((new Function('return this'))(), 'MetaJS', [], function (undefined) {
 
 var Meta = function(manager) {
     this.manager = manager;
@@ -134,14 +162,16 @@ Processor.prototype = {
         return copy;
     }
 }
-;(function(global) {
+var manager   = new Manager();
+var meta      = new Meta(manager);
 
-    var manager = new Manager();
-    var meta    = new Meta(manager);
+return {
+    Manager:    Manager,
+    Processor:  Processor,
+    Meta:       Meta,
 
-    global.meta = meta;
-
-})(global)
+    meta: meta
+};
 meta.processor('Meta.Chain',  {
 
     processors: {},
@@ -193,5 +223,4 @@ meta.processor('Meta.Options', {
         }
     }
 })
-
-})(this);
+}));
